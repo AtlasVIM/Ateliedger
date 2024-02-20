@@ -4,37 +4,37 @@ import React from "react"
 export const SidebarData = [
     {
         title: 'Home',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
-        route: '/home',
+        icon: <img alt="home" src="icons/home-svg.svg" width={'30%'}></img>,
+        route: '/',
     },
     {
         title: 'Products',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="products" src="icons/box-svg.svg" width={'30%'}></img>,
         route: '/products',
     },
     {
         title: 'Materials',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="materials" src="icons/material-svg.svg" width={'30%'}></img>,
         route: '/materials',
     },
     {
         title: 'Machines',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="machines" src="icons/machine-svg.svg" width={'30%'}></img>,
         route: '/machines',
     },
     {
         title: 'Team',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="team" src="icons/team-svg.svg" width={'30%'}></img>,
         route: '/team',
     },
     {
         title: 'Production',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="production" src="icons/production-svg.svg" width={'30%'}></img>,
         route: '/production',
     },
     {
         title: 'Transactions',
-        icon: <img src="icons/home-svg.svg" width={25} height={25}></img>,
+        icon: <img alt="transactions" src="icons/transaction-svg.svg" width={'30%'}></img>,
         route: '/transactions',
     },
 ]

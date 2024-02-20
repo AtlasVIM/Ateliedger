@@ -3,27 +3,32 @@
   background-size: cover;
   width: 100vw;
   height: 100vh;
+  margin: 0px;
+  padding: 0px;
 }
 
 #sidebar {
-  height: 100%;
-  width: 250px;
+   z-index: 2;
+  height: 100vh;
   background-color: #2F4050;
 }
 
 #sidebar-data {
+   z-index: 2;
   height: auto;
   padding: 0;
-  width: 100%;
 }
 
 #sidebar-data .row {
-  height: 50px;
+   z-index: 2;
+  height: 10vh;
   list-style-type: none;
   display: flex;
   margin: 0%;
+  padding: 0;
   justify-content: center;
   align-items: center;
+  font-size: 1.5vw;
   color: white;
   flex-direction: row;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -32,18 +37,65 @@
 #sidebar-data .row:hover{
   cursor: pointer;
   background-color: #292929;
+   z-index: 2;
 }
 
 #sidebar-data #active {
   background-color: #292929;
+   z-index: 2;
+}
+
+#sidebar-wrapper {
+  background-color: #2F4050;
+  display: flex;
+  flex-direction: column;
+  width: 15vw;
+  z-index: 2;
+  position: absolute;
 }
 
 .row .icon {
   flex: 30%;
   place-items: center;
   display: grid;
+  
+   z-index: 2;
+}
+
+#settings-icon {
+  width: 2vw;
+   z-index: 2;
+  align-self: center;
 }
 
 .row .title {
-  flex: 70%
+  flex: 70%;
+  place-items: left;
+   z-index: 2;
+}
+
+#content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#machines-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.page-title {
+  font-size: 50px;
+  background-color: azure;
+  display: grid;
+  place-items: center;
+}
+
+.delete-edit-box {
+  display: flex;
+  justify-content: space-around;
 }
