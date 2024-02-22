@@ -13,7 +13,7 @@ const getUniqueTransactionTypes = function(data) {
     .filter((value, index, currentValue) => currentValue.indexOf(value)===index)
 }
 
-export default function TransactionsTable({rows}) {
+export default function TransactionsTable({rows, deleteRow}) {
 
     const [typeFilter, setTypeFilter] = useState('')
     const [nameFilter, setNameFilter] = useState('')
@@ -22,9 +22,9 @@ export default function TransactionsTable({rows}) {
     return(
         <div className="container-fluid">
             <span>
-            <select className="custom-select" onChange={(e) => setTypeFilter(e.target.value)} ><option id="filter-type-all">All Items</option> {getUniqueValues(TransactionsDB).map((type) => {return (<option id={'filter-type-'+type}>{type.charAt(0).toUpperCase()+type.slice(1)}</option>)})}</select>
-            <select className="custom-select" onChange={(e) => setTransactionTypeFilter(e.target.value)} ><option id="filter-type-all">All Transactions</option> {getUniqueTransactionTypes(TransactionsDB).map((transactionType) => {return (<option id={'filter-type-'+transactionType}>{transactionType.charAt(0).toUpperCase()+transactionType.slice(1)}</option>)})}</select>
-            <input type="text" placeholder="Search" onChange={(e) => setNameFilter(e.target.value)}></input>
+            <select className="custom-select" onChange={(e) => setTypeFilter(e.target.value.toLowerCase())} ><option key='all-items' id="filter-type-all">All Items</option> {getUniqueValues(TransactionsDB).map((type) => {return (<option key={type} id={'filter-type-'+type}>{type.charAt(0).toUpperCase()+type.slice(1)}</option>)})}</select>
+            <select className="custom-select" onChange={(e) => setTransactionTypeFilter(e.target.value.toLowerCase())} ><option key={'all-transactions'} id="filter-type-all">All Transactions</option> {getUniqueTransactionTypes(TransactionsDB).map((transactionType) => {return (<option key={transactionType} id={'filter-type-'+transactionType}>{transactionType.charAt(0).toUpperCase()+transactionType.slice(1)}</option>)})}</select>
+            <input type="text" placeholder="Search" onChange={(e) => setNameFilter(e.target.value.toLowerCase())}></input>
             </span>
             <table className="table align-middle table-dark table-hover rounded shadow">
                 <thead>
@@ -39,17 +39,17 @@ export default function TransactionsTable({rows}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows
+                    {TransactionsDB
                     .filter((transaction) => {
-                        return typeFilter === 'All Items' ? transaction : transaction.type.includes(typeFilter)
+                        return typeFilter === 'all items' ? transaction : transaction.type.includes(typeFilter)
                     })
                     .filter((transaction) => {
-                        return transactionTypeFilter === 'All Transactions' ? transaction : transaction.transactionType.includes(transactionTypeFilter)
+                        return transactionTypeFilter === 'all transactions' ? transaction : transaction.transactionType.includes(transactionTypeFilter)
                     })
                     .filter((transaction) => {
                         return nameFilter.toLowerCase() === '' ? transaction : transaction.name.toLowerCase().includes(nameFilter.toLowerCase())
                     })
-                    .map((transaction) => {
+                    .map((transaction, index) => {
                         return(
                             <tr key={transaction.id}>
                                 <td className="text-center">{transaction.date}</td>
@@ -61,7 +61,7 @@ export default function TransactionsTable({rows}) {
                                 <td>
                                     <span className="delete-edit-box">
                                         <button><img width={20} alt="edit" src="icons/edit-svg.svg"/></button>
-                                        <button><img width={20} alt="delete" src="icons/delete-svg.svg"/></button>
+                                        <button><img width={20} onClick={() => deleteRow(index)} alt="delete" src="icons/delete-svg.svg"/></button>
                                     </span>
                                 </td>
                             </tr>

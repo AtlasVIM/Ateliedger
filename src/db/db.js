@@ -5,7 +5,7 @@ export const TransactionTypeDB = ['Payment', 'Purchase', 'Sale']
 export const TransactionsDB = [
     {
         id:1, 
-        date:'24/01/2024',
+        date:'2024-01-24',
         transactionType: 'sale', 
         type: 'machines', 
         name: 'Fokoos',
@@ -14,7 +14,7 @@ export const TransactionsDB = [
     },
     {
         id:2,
-        date:'25/02/2024', 
+        date:'2024-02-25', 
         transactionType: 'purchase', 
         type: 'machines', 
         name: 'Halot One',
@@ -23,7 +23,7 @@ export const TransactionsDB = [
     },
     {
         id:3, 
-        date:'23/02/2024', 
+        date:'2024-01-30', 
         transactionType: 'purchase', 
         type: 'materials', 
         name: 'Creality Resin Gray 1KG',
