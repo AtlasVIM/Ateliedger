@@ -1,25 +1,20 @@
 import { useState } from "react";
 import { TransactionsDB } from "../../db/db";
 
-
 const getUniqueValues = function(data) {
-    let uniqueValues = data
+    return data
     .map((transaction) => transaction.type)
     .filter((value, index, currentValue) => currentValue.indexOf(value)===index)
-    console.log(uniqueValues)
-    return uniqueValues;
-}
+}   
+
 const getUniqueTransactionTypes = function(data) {
-    let uniqueValues = data
+    return data
     .map((transaction) => transaction.transactionType)
     .filter((value, index, currentValue) => currentValue.indexOf(value)===index)
-    console.log(uniqueValues)
-    return uniqueValues;
 }
 
-export default function TransactionsTable() {
-    
-    const [editVisible, setEditVisibility] = useState(false)
+export default function TransactionsTable({rows}) {
+
     const [typeFilter, setTypeFilter] = useState('')
     const [nameFilter, setNameFilter] = useState('')
     const [transactionTypeFilter, setTransactionTypeFilter] = useState('')
@@ -27,29 +22,24 @@ export default function TransactionsTable() {
     return(
         <div className="container-fluid">
             <span>
-            <button className="btn btn-light" onClick={() => {setEditVisibility(!editVisible)}}>{editVisible ? 'GO BACK' : 'EDIT'}</button>
-            <button className="btn btn-warning">ADD NEW TRANSACTION</button>
-            {editVisible && <button className='btn btn-danger'>SAVE</button>}
-            <select className="custom-select" onChange={(e) => setTypeFilter(e.target.value)} ><option id="filter-type-all">All Items</option> {getUniqueValues(TransactionsDB).map((type) => {return (<option id={'filter-type-'+type}>{type}</option>)})}</select>
-            <select className="custom-select" onChange={(e) => setTransactionTypeFilter(e.target.value)} ><option id="filter-type-all">All Transactions</option> {getUniqueTransactionTypes(TransactionsDB).map((transactionType) => {return (<option id={'filter-type-'+transactionType}>{transactionType}</option>)})}</select>
+            <select className="custom-select" onChange={(e) => setTypeFilter(e.target.value)} ><option id="filter-type-all">All Items</option> {getUniqueValues(TransactionsDB).map((type) => {return (<option id={'filter-type-'+type}>{type.charAt(0).toUpperCase()+type.slice(1)}</option>)})}</select>
+            <select className="custom-select" onChange={(e) => setTransactionTypeFilter(e.target.value)} ><option id="filter-type-all">All Transactions</option> {getUniqueTransactionTypes(TransactionsDB).map((transactionType) => {return (<option id={'filter-type-'+transactionType}>{transactionType.charAt(0).toUpperCase()+transactionType.slice(1)}</option>)})}</select>
             <input type="text" placeholder="Search" onChange={(e) => setNameFilter(e.target.value)}></input>
             </span>
-            <table className="table align-middle table-dark">
+            <table className="table align-middle table-dark table-hover rounded shadow">
                 <thead>
                     <tr>
-                        <th scope="col">DATE</th>
-                        <th scope="col">TRANSACTION</th>
-                        <th scope="col">DESCRIPTION</th>
-                        <th scope="col">TYPE</th>
-                        <th scope="col">VARIABLE COSTS</th>
-                        <th scope="col">FIXED COSTS</th>
-                        <th scope="col">EDIT/DELETE</th>
-                        {editVisible && <th>CHANGE VARIABLE COST</th>}
-                        {editVisible && <th>CHANGE FIXED COST</th>}
+                        <th className="text-center" scope="col">DATE</th>
+                        <th className="text-center" scope="col">TRANSACTION</th>
+                        <th className="text-center" scope="col">DESCRIPTION</th>
+                        <th className="text-center" scope="col">TYPE</th>
+                        <th className="text-center" scope="col">QUANTITY</th>
+                        <th className="text-center" scope="col">TOTAL AMMOUNT</th>
+                        <th className="text-center" scope="col">EDIT/DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {TransactionsDB
+                    {rows
                     .filter((transaction) => {
                         return typeFilter === 'All Items' ? transaction : transaction.type.includes(typeFilter)
                     })
@@ -57,25 +47,23 @@ export default function TransactionsTable() {
                         return transactionTypeFilter === 'All Transactions' ? transaction : transaction.transactionType.includes(transactionTypeFilter)
                     })
                     .filter((transaction) => {
-                        return nameFilter.toLowerCase() === '' ? transaction : transaction.name.toLowerCase().includes(nameFilter)
+                        return nameFilter.toLowerCase() === '' ? transaction : transaction.name.toLowerCase().includes(nameFilter.toLowerCase())
                     })
                     .map((transaction) => {
                         return(
                             <tr key={transaction.id}>
-                                <td>{transaction.date}</td>
-                                <td>{transaction.transactionType}</td>
+                                <td className="text-center">{transaction.date}</td>
+                                <td className="text-center">{transaction.transactionType.charAt(0).toUpperCase()+transaction.transactionType.slice(1)}</td>
                                 <th>{transaction.name}</th>
-                                <td>{transaction.type}</td>
-                                <td>{transaction.variableCosts.map((cost) => {return(<p><strong>{cost.costTitle}</strong>{' : '+cost.costPerUnit}</p>)})}</td>
-                                <td>{transaction.fixedCosts.map((cost) => {return(<p><strong>{cost.costTitle}</strong>{' : '+cost.costPerUnit}</p>)})}</td>
+                                <td className="text-center">{transaction.type.charAt(0).toUpperCase()+transaction.type.slice(1)}</td>
+                                <td className="text-center">{transaction.quantity}</td>
+                                <td className="text-center">{transaction.ammount}</td>
                                 <td>
                                     <span className="delete-edit-box">
-                                        <img width={20} alt="edit" src="icons/edit-svg.svg"/>
-                                        <img width={20} alt="delete" src="icons/delete-svg.svg"/>
+                                        <button><img width={20} alt="edit" src="icons/edit-svg.svg"/></button>
+                                        <button><img width={20} alt="delete" src="icons/delete-svg.svg"/></button>
                                     </span>
                                 </td>
-                                {editVisible && <td>{transaction.variableCosts.map((type) => {return(<div><input placeholder={type.costTitle} type="number"></input></div>)})}</td>}
-                                {editVisible && <td>{transaction.fixedCosts.map((type) => {return(<div><input placeholder={type.costTitle} type="number"></input></div>)})}</td>}
                             </tr>
                         )
                     })}

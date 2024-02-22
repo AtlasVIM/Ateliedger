@@ -1,44 +1,59 @@
-
+export const TypeDB = ['Products', 'Materials', 'Machines']
+export const TransactionTypeDB = ['Payment', 'Purchase', 'Sale']
 
 
 export const TransactionsDB = [
     {
         id:1, 
         date:'24/01/2024',
-        transactionType: 'Sale', 
-        type: 'Machines', 
-        name: 'Fokoos', 
-        variableCosts: [
-            {costTitle: 'Electricity Per Hour' , costPerUnit: 0.15, unit: 'Hour'}, 
-            {costTitle: 'Maintenance', costPerUnit:0.005, unit:'Hour'}
-        ], 
-        fixedCosts: [
-            {costTitle: 'Price', costPerUnit:150}
-        ]
+        transactionType: 'sale', 
+        type: 'machines', 
+        name: 'Fokoos',
+        quantity: 1,
+        ammount: 120, 
     },
     {
         id:2,
         date:'25/02/2024', 
-        transactionType: 'Purchase', 
-        type: 'Machines', 
-        name: 'Halot One', 
-        variableCosts: [
-            {costTitle: 'Electricity per Hour', costPerUnit:0.15, unit: 'Hour'}
-        ], 
-        fixedCosts: [
-            {costTitle: 'Price', costPerUnit:100}
-        ] 
+        transactionType: 'purchase', 
+        type: 'machines', 
+        name: 'Halot One',
+        quantity: 1,
+        ammount: 150, 
     },
     {
         id:3, 
         date:'23/02/2024', 
-        transactionType: 'Purchase', 
-        type: 'Materials', 
-        name: 'Creality Resin Gray 1KG', 
-        variableCosts: [
-            {costTitle: 'Cost per gram', costPerUnit:0.03, unit: 'Gram'}
-        ], 
-        fixedCosts: [
-            {costTitle: 'Price', costPerUnit:30}
-        ] },
+        transactionType: 'purchase', 
+        type: 'materials', 
+        name: 'Creality Resin Gray 1KG',
+        quantity: 2,
+        ammount: 60, 
+        },
+]
+
+export const MaterialsDB = [
+    {
+        id:1,
+        name:'JAYO WHITE PLA',
+        price:22,
+        quantity:1000,
+        unit:'Gram',
+    },
+    {
+        id:2,
+        name:'ESUN WHITE RESIN ABS',
+        price:30,
+        quantity:1000,
+        unit:'Gram',
+    }
+]
+
+export const ProductsDB = [
+    {
+        id:1,
+        name: 'Star Rail Sampo Bomb Earing',
+        materials: 
+        {materialObj: {} , quantity: 10}
+    }
 ]

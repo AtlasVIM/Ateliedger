@@ -6,9 +6,9 @@ import TransactionPage from './pages/TransactionPage';
 function App() {
   return (
     <div id="page-wrapper">
-      <Sidebar></Sidebar>
+      <Sidebar/>
       <div id="content-container">
-      {window.location.pathname==='/machines' && <MachinesPage></MachinesPage>}
+      {window.location.pathname==='/machines' && <MachinesPage/>}
       {window.location.pathname==='/transactions' && <TransactionPage/>}
       </div>
     </div>
